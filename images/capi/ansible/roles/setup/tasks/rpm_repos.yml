@@ -20,6 +20,12 @@
   register: repo_files
   when: disable_public_repos|bool
 
+- name: Print existing public repo file names
+  ansible.builtin.debug:
+    msg: "Repo : {{ item.path }}"
+  loop: "{{ repo_files.files }}"
+  when: disable_public_repos|bool
+
 - name: Disable repos
   command: mv {{ item.path }} {{ item.path }}.disabled
   loop: "{{ repo_files.files }}"

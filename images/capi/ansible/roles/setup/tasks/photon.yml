@@ -27,10 +27,18 @@
   register: distro
   changed_when: '"Nothing to do" not in distro.stderr'
 
-- name: Print existing public repo file names
+- name: Find repo files - post sync
+  find:
+    depth: 1
+    paths: /etc/yum.repos.d
+    patterns: "*"
+  register: all_repo_files
+  when: disable_public_repos|bool
+
+- name: Print repo file names - Post Sync
   ansible.builtin.debug:
     msg: "Repo : {{ item.path }}"
-  loop: "{{ repo_files.files }}"
+  loop: "{{ all_repo_files.files }}"
   when: disable_public_repos|bool
 
 - name: Concatenate the Photon RPMs

@@ -31,6 +31,20 @@
   loop: "{{ repo_files.files }}"
   when: disable_public_repos|bool
 
+- name: Find disabled repo files
+  find:
+    depth: 1
+    paths: /etc/yum.repos.d
+    patterns: "*"
+  register: disabled_repo_files
+  when: disable_public_repos|bool
+
+- name: Print disabled repo file names
+  ansible.builtin.debug:
+    msg: "Repo : {{ item.path }}"
+  loop: "{{ disabled_repo_files.files }}"
+  when: disable_public_repos|bool
+
 - name: Install extra repos
   copy:
     src: "{{ item }}"

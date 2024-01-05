@@ -27,6 +27,12 @@
   register: distro
   changed_when: '"Nothing to do" not in distro.stderr'
 
+- name: Print existing public repo file names
+  ansible.builtin.debug:
+    msg: "Repo : {{ item.path }}"
+  loop: "{{ repo_files.files }}"
+  when: disable_public_repos|bool
+
 - name: Concatenate the Photon RPMs
   set_fact:
     photon_rpms: "{{ rpms | join(' ') }}"

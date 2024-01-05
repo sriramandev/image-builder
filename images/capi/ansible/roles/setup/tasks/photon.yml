@@ -22,6 +22,12 @@
 
 - import_tasks: rpm_repos.yml
 
+- name: List contents of /etc/tdnf/tdnf.conf
+  command: cat /etc/tdnf/tdnf.conf
+  register: tdnfconf
+
+- debug: msg={{ tdnfconf.stdout }}
+
 - name: Perform a tdnf distro-sync
   command: tdnf distro-sync -y --refresh
   register: distro

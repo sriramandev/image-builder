@@ -27,8 +27,7 @@
   when: disable_public_repos|bool
 
 - name: Disable repos
-  # command: mv {{ item.path }} {{ item.path }}.disabled
-  command: sed -i  '/^enabled/s/=.*$/=1/' {{ item.path }}
+  command: mv {{ item.path }} {{ item.path }}.disabled
   loop: "{{ repo_files.files }}"
   when: disable_public_repos|bool
 

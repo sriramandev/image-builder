@@ -28,6 +28,10 @@
 
 - debug: msg={{ tdnfconf.stdout }}
 
+- name: Pause for 5 minutes 
+  ansible.builtin.pause:
+    minutes: 5
+
 - name: Perform a tdnf distro-sync
   command: tdnf distro-sync -y --refresh
   register: distro

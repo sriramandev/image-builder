@@ -427,6 +427,10 @@
       "user": "{{user `ssh_username`}}"
     },
     {
+      "script": "./packer/files/ova/scripts/pack-zeroes.sh",
+      "type": "shell"
+    },
+    {
       "arch": "{{user `goss_arch`}}",
       "download_path": "{{user `goss_download_path`}}",
       "except": [
